@@ -1,0 +1,32 @@
+plugins {
+    id 'base'
+}
+
+// 要排除的目录（不打包的）
+def excludeDirs = ['.git', '.idea', '.gradle', 'build', 'gradle'] as Set
+
+// 获取当前项目中要打包的目录
+def dirsToPackage = file('.').listFiles()
+    .findAll { it.directory && !excludeDirs.contains(it.name) }
+    .collect { it.name }
+
+println "Found directories to package: ${dirsToPackage}"
+
+// 为每个目录创建 zip 打包任务
+dirsToPackage.each { dirName ->
+    tasks.register("zip${dirName.replace('-', '_').replace('.', '_')}", Zip) {
+        archiveFileName.set("${dirName}.zip")
+        destinationDirectory.set(file('.'))
+        from dirName
+    }
+}
+
+// 添加一个汇总任务
+tasks.register('packageAll') {
+    group = 'build'
+    description = 'Package all directories into zip files'
+    dependsOn dirsToPackage.collect { "zip${it.replace('-', '_').replace('.', '_')}" }
+}
+
+
+build.dependsOn packageAll

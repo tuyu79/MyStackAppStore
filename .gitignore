@@ -1,0 +1,10 @@
+.gradle
+.idea
+.DS_Store
+build
+out
+
+*.zip
+
+nacos-3.2.2
+sentinel-dashboard

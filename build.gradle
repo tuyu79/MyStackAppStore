@@ -3,7 +3,7 @@ plugins {
 }
 
 // 要排除的目录（不打包的）
-def excludeDirs = ['.git', '.idea', '.gradle', 'build', 'gradle'] as Set
+def excludeDirs = ['.git', '.idea', '.gradle', 'build', 'gradle', '.claude'] as Set
 
 // 获取当前项目中要打包的目录
 def dirsToPackage = file('.').listFiles()

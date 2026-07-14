@@ -7,4 +7,5 @@ out
 *.zip
 
 nacos-3.2.2
-sentinel-dashboard
+sentinel-dashboard-1.8.10
+seata-server-2.7.0
